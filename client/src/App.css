@@ -1,0 +1,112 @@
+.checkbox-button {
+  display: inline-block;
+  position: relative;
+  background-color: transparent;
+  border-radius: 12px;
+  cursor: pointer;
+}
+
+.checkbox-button input[type="checkbox"] {
+  position: absolute;
+  top: -20px;
+  opacity: 0;
+}
+
+.checkbox-button label {
+  border-radius: 12px;
+  border: 2px solid transparent;
+  padding: 10px 20px;
+}
+
+.checkbox-button input[type="checkbox"]:checked + label {
+  border-color: purple;
+  color: purple;
+}
+.main-container {
+  display: flex;
+  padding: 20px;
+  height: 100vh;
+}
+
+.filters-container {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.filter-checkboxes {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.checkbox-button {
+  margin: 10px;
+}
+
+.checkbox-button input {
+  margin-right: 5px;
+}
+
+.meals-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  overflow-y: auto;
+}
+
+.meal-card {
+  display: flex;
+  border: 1px solid #ddd;
+  margin-bottom: 20px;
+  padding: 10px;
+  width: 80%;
+}
+
+.meal-image {
+  max-width: 200px;
+  max-height: 150px;
+  margin-right: 20px;
+}
+
+.meal-info {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+.meal-info h3 {
+  margin-top: 0;
+}
+
+.select-button {
+  margin-top: auto;
+  padding: 10px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.pagination button {
+  margin: 0 5px;
+  padding: 10px;
+  background-color: #f0f0f0;
+  border: none;
+  cursor: pointer;
+}
+
+.buy-button {
+  padding: 20px;
+  background-color: #28a745;
+  color: white;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+}
