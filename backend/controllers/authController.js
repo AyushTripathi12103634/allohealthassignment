@@ -10,10 +10,10 @@ export const registerController = async(req,res) => {
         if(!email) return res.status(400).send({success:false,message:"Please enter email"});
         if(!password) return res.status(400).send({success:false,message:"Please enter password"});
 
-        const username_check = await usermodel.findOne(username);
+        const username_check = await usermodel.findOne({username});
         if(username_check) return res.status(400).send({success:false,message:"username exists"});
 
-        const email_check = await usermodel.findOne(email);
+        const email_check = await usermodel.findOne({email});
         if(email_check) return res.status(400).send({success:false,message:"email exists"});
 
         const hashpassword = await hashPassword(password);

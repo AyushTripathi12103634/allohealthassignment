@@ -8,11 +8,15 @@ const Home = () => {
     const [meals, setMeals] = useState([]);
     const [filteredMeals, setFilteredMeals] = useState([]);
     const [filters, setFilters] = useState([]);
-    const [selectedMeals, setSelectedMeals] = useState([]);
+    const [selectedMeals, setSelectedMeals] = useState({});
 
     const fetchAllMeals = async () => {
         try {
-            const response = await axios.get(`/meal/get-meal/${page}`);
+            const response = await axios.get(`/meal/get-meal/${page}`,{
+                headers:{
+                    Authorization: localStorage.getItem("token")
+                }
+            });
             setMeals(response.data.meals);
             setFilteredMeals(response.data.meals);
             toast.success('Meals fetched successfully', {
@@ -65,8 +69,13 @@ const Home = () => {
     };
 
     const handleSelectMeal = (meal) => {
-        if (!selectedMeals.includes(meal)) {
-            setSelectedMeals([...selectedMeals, meal]);
+        setSelectedMeals((prevSelectedMeals) => {
+            const newSelectedMeals = { ...prevSelectedMeals };
+            if (newSelectedMeals[meal.id]) {
+                newSelectedMeals[meal.id].count += 1;
+            } else {
+                newSelectedMeals[meal.id] = { ...meal, count: 1 };
+            }
             toast.success(`Selected ${meal.title}`, {
                 position: 'top-right',
                 autoClose: 3000,
@@ -78,12 +87,17 @@ const Home = () => {
                 theme: 'dark',
                 transition: Bounce,
             });
-        }
+            return newSelectedMeals;
+        });
     };
 
     const handleBuy = () => {
-        if (selectedMeals.length > 0) {
-            toast.success('You have bought the selected meals!', {
+        if (Object.keys(selectedMeals).length > 0) {
+            let total = 0;
+            Object.values(selectedMeals).forEach((meal) => {
+                total += meal.price * meal.count;
+            })
+            toast.success(`You have bought the selected meals for €${total}`, {
                 position: 'top-right',
                 autoClose: 3000,
                 hideProgressBar: false,
@@ -94,7 +108,7 @@ const Home = () => {
                 theme: 'dark',
                 transition: Bounce,
             });
-            setSelectedMeals([]);
+            setSelectedMeals({});
         } else {
             toast.error('Please select a meal first!', {
                 position: 'top-right',
@@ -170,9 +184,9 @@ const Home = () => {
             <div style={{ width: "40%", padding: '20px' }}>
                 <h2>Selected Meals</h2>
                 <div className='selected-meals'>
-                    {selectedMeals.map((meal) => (
+                    {Object.values(selectedMeals).map((meal) => (
                         <div key={meal.id} className='selected-meal'>
-                            <p>{meal.title}</p>
+                            <p>{meal.title} x {meal.count}</p>
                         </div>
                     ))}
                 </div>

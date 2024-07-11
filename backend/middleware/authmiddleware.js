@@ -6,6 +6,9 @@ export const requireSignIn = async (req,res,next) => {
         req.user=decode;
         next();
     } catch (error) {
-        console.log("Error in requireSignIn middleware. Error: ",error);
+        return res.status(500).send({
+            success: false,
+            message:"user not logged in. please log in"
+        })
     }
 }

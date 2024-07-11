@@ -48,6 +48,32 @@
   margin-right: 5px;
 }
 
+.main-container {
+  display: flex;
+  padding: 20px;
+  height: 100vh;
+}
+
+.filters-container {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.filter-checkboxes {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.checkbox-button {
+  margin: 10px;
+}
+
+.checkbox-button input {
+  margin-right: 5px;
+}
+
 .meals-container {
   display: flex;
   flex-direction: column;
